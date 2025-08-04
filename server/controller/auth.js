@@ -76,6 +76,13 @@ class Auth {
               newUser
                 .save()
                 .then((data) => {
+                  console.log("New user registered:", {
+                    _id: data._id,
+                    name: data.name,
+                    email: data.email,
+                    userRole: data.userRole,
+                    createdAt: data.createdAt,
+                  });
                   return res.json({
                     success: "Account create successfully. Please login",
                   });
@@ -122,6 +129,13 @@ class Auth {
             JWT_SECRET
           );
           const encode = jwt.verify(token, JWT_SECRET);
+          console.log("logged in:", {
+            _id: data._id,
+            name: data.name,
+            email: data.email,
+            userRole: data.userRole,
+            lastLogin: new Date().toISOString(),
+          });
           console.log("JWT Token:", token);
           return res.json({
             token: token,
